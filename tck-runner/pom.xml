@@ -83,10 +83,6 @@
         </testResources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>de.thetaphi</groupId>
                 <artifactId>forbiddenapis</artifactId>
             </plugin>
@@ -172,7 +168,7 @@
                 <!-- Use Local for testing without security manager -->
                 <arquillian.protocol>LocalSecurityManagerTesting</arquillian.protocol>
                 <!-- Remove for testing without security manager -->
-                <maven-surefire-plugin.argLine>-DincludeJavaFXTests=true -Djava.security.manager -Djava.security.policy=${project.build.directory}/test-classes/test.policy</maven-surefire-plugin.argLine>
+                <maven-surefire-plugin.argLine> -Djava.security.manager -Djava.security.policy=${project.build.directory}/test-classes/test.policy</maven-surefire-plugin.argLine>
                 <!-- Uncomment the following line to obtain the access log of the security manager -->
                 <!--<maven-surefire-plugin.argLine>-Djava.security.manager -Djava.security.policy=${project.build.directory}/test-classes/test.policy -Djava.security.debug=access</maven-surefire-plugin.argLine>-->
             </properties>
@@ -223,7 +219,7 @@
                 </property>
             </activation>
             <properties>
-                <maven-surefire-plugin.argLine>-DincludeJavaFXTests=true -Xmx1024m -Djava.util.logging.manager=org.jboss.logmanager.LogManager</maven-surefire-plugin.argLine>
+                <maven-surefire-plugin.argLine> -Xmx1024m -Djava.util.logging.manager=org.jboss.logmanager.LogManager</maven-surefire-plugin.argLine>
                 <arquillian.protocol>Servlet 3.0</arquillian.protocol>
             </properties>
             <dependencies>
@@ -242,73 +238,6 @@
             </dependencies>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>unpack-wildfly</id>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>unpack</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.wildfly</groupId>
-                                            <artifactId>wildfly-dist</artifactId>
-                                            <version>${wildfly-tck.version}</version>
-                                            <type>tar.gz</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-patch</id>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>${project.groupId}</groupId>
-                                            <artifactId>hibernate-validator-modules</artifactId>
-                                            <version>${project.version}</version>
-                                            <classifier>wildfly-${wildfly-tck.version}-patch</classifier>
-                                            <type>zip</type>
-                                            <outputDirectory>${project.build.directory}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.wildfly.plugins</groupId>
-                        <artifactId>wildfly-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>apply-patch-file</id>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>execute-commands</goal>
-                                </goals>
-                                <configuration>
-                                    <offline>true</offline>
-                                    <fail-on-error>false</fail-on-error>
-                                    <commands>
-                                        <command>patch apply ${project.build.directory}/hibernate-validator-modules-${project.version}-wildfly-${wildfly-tck.version}-patch.zip</command>
-                                    </commands>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <jbossHome>${wildfly.target-dir}</jbossHome>
-                        </configuration>
-                    </plugin>
-
                     <!-- Additional resources are copied in the profiles below -->
 
                     <!-- Update standalone.xml -->
