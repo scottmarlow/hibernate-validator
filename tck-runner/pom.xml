@@ -394,7 +394,7 @@
                 <jdk>[9,)</jdk>
             </activation>
             <properties>
-                <surefire.jvm.args.add-opens>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED</surefire.jvm.args.add-opens>
+                <surefire.jvm.args.add-opens>--add-exports=java.desktop/sun.awt=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.management/javax.management=ALL-UNNAMED --add-opens=java.naming/javax.naming=ALL-UNNAMED</surefire.jvm.args.add-opens>
             </properties>
         </profile>
         <profile>
