@@ -27,7 +27,7 @@
         <configuration>
             <property name="jbossHome">${wildfly.target-dir}</property>
             <property name="javaVmArguments">${arquillian.wildfly.jvm.args}
-                -Xmx1024m -XX:MaxPermSize=512m ${remote.debug}
+                -Xmx1024m ${remote.debug}
                 -Dvalidation.provider=${validation.provider}
             </property>
             <property name="allowConnectingToRunningServer">true</property>
